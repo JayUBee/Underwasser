@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Swiper</title>
+    <link rel="stylesheet">
+</head>
+<body>
+    <header>
+        <button id="start">Start</button>    
+        <button id="interesting">Interesting</button>
+        <button id="not_interesting">Not Interesting</button>
+    </header>
+    
+    <main>
+        <input id="uploadInput" type="file" multiple />
+        <div id="images"></div>
+    </main>
+    
+    <script>
+        var i = 0;
+        let files = [];
+        let interestingFolderHandle;
+        let notInterestingFolderHandle;
+
+        const start = document.getElementById('start');
+        const interesting = document.getElementById('interesting');
+        const notInteresting = document.getElementById('not_interesting');
+        const uploadInput = document.getElementById('uploadInput');
+        const container = document.getElementById('images');
+      
+        uploadInput.addEventListener('change', function(event) {
+            files = event.target.files;
+            displayImage();
+        });
+
+        start.addEventListener('click', function() {
+            displayImage();
+        });
+
+        notInteresting.addEventListener('click', async function() {
+            if (!notInterestingFolderHandle) {
+                notInterestingFolderHandle = await window.showDirectoryPicker();
+            }
+            moveFileToFolder(files[i], notInterestingFolderHandle);
+            i++;
+            displayImage();
+        });
+
+        interesting.addEventListener('click', async function() {
+            if (!interestingFolderHandle) {
+                interestingFolderHandle = await window.showDirectoryPicker();
+            }
+            moveFileToFolder(files[i], interestingFolderHandle);
+            i++;
+            displayImage();
+        });
+
+     
+        function displayImage() {
+            if (i < files.length) {
+                container.innerHTML = `<img src="${URL.createObjectURL(files[i])}" />`;
+            } else {
+                container.innerHTML = 'No more images';
+            }
+        }
+
+        async function moveFileToFolder(file, folderHandle) {
+            const fileHandle = await folderHandle.getFileHandle(file.name, { create: true });
+            const writable = await fileHandle.createWritable();
+            await writable.write(await file.arrayBuffer());
+            await writable.close();
+            URL.revokeObjectURL(URL.createObjectURL(file));
+        }
+    </script>
+</body>
+</html>
