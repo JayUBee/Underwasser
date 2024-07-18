@@ -44,7 +44,7 @@ for fn in images:
 f = graph  # Example function values
 n = len(f)  # Maximum value of x
 window_size = 50  # Example window size
-
+ 
 densest_start, densest_end = densest_interval(f, n, window_size)
 print(f"The densest interval is from x = {densest_start} to x = {densest_end}")
 plt.plot(f)
