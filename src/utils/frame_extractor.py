@@ -1,5 +1,6 @@
 import cv2
 import os
+import math
 
 # Path to the video file
 video_path = "./video.wmv"
@@ -17,18 +18,18 @@ video = cv2.VideoCapture(video_path)
 # Initialize frame counter
 frame_count = 0
 i=0
-frame_per_frames = 300
+frame_per_frames = 100
 # Read frames from the video
 while True:
     # Read the next frame
     ret, frame = video.read()
-
+    timestamp = video.get(cv2.CAP_PROP_POS_MSEC)/1000
     # Break the loop if no more frames are available
     if not ret:
         break
     # Save the frame as an image
     if(frame_count%frame_per_frames == 0 ) :
-        output_path = os.path.join(output_dir, f"img{i}.jpg")
+        output_path = os.path.join(output_dir, f"{math.floor(timestamp)}.jpg")
         cv2.imwrite(output_path, frame)
         i += 1
 

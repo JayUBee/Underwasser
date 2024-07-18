@@ -1,13 +1,17 @@
 import numpy as np
 from keras.preprocessing import image
+import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 import shutil
+from sequenceMapper import densest_interval
+
 
 image_dir = './out/'
 images = [os.path.join(image_dir, f) for f in os.listdir(image_dir) if f.endswith(('.png', '.jpg', '.jpeg'))]
 model = tf.keras.models.load_model("./rps.h5")
 i = 0
+graph=[]
 for fn in images:
     # Predicting images
     path = fn
@@ -21,10 +25,27 @@ for fn in images:
     print(classes)
     if classes[0][0] == 1:
         print("interesting")
-        shutil.move(path,  './dout/interesting/')
+        shutil.move(path,  './out/interesting/')
         i += 1
-
+        graph.append(1)
+        with open('graph.txt', 'a') as file:
+            file.write(str(1) + '\n')
+        
     elif classes[0][1] == 1:
         print("not interesting")
-        shutil.move(path, './dout/not_interesting/')
+        shutil.move(path, './out/not_interesting/')
         i += 1
+        graph.append(0)
+        with open('graph.txt', 'a') as file:
+            file.write(str(0) + '\n')
+
+#append to file file.txt
+
+f = graph  # Example function values
+n = len(f)  # Maximum value of x
+window_size = 50  # Example window size
+
+densest_start, densest_end = densest_interval(f, n, window_size)
+print(f"The densest interval is from x = {densest_start} to x = {densest_end}")
+plt.plot(f)
+plt.show()

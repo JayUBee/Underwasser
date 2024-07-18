@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt 
+
 def plot_training(history):
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
