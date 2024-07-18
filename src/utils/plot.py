@@ -15,3 +15,16 @@ def plot_training(history):
     plt.figure()
     
     plt.show()
+
+
+def plot_prediction(path, range):
+    #open txt file
+    file = open(path, "r")
+    #read the file
+    lines = file.readlines()
+    for line in lines:
+        x, y = line.split(":")
+        if int(x) < range:
+            plt.bar(x, y)
+    plt.show()
+    file.close()
