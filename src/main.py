@@ -53,4 +53,4 @@ densest_start, densest_end = densest_interval(f, n, window_size)
 print(f"The densest interval is from x = {densest_start} to x = {densest_end}")
 x_values = range(graph.__len__())
 
-plot_prediction('graph.txt', 500)
+plot_prediction('graph.txt')

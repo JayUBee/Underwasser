@@ -1,4 +1,4 @@
-from modelController.model import  model
+from modelController.modelCompiler import  model
 from modelController.dataGenerator import train_generator, validation_generator
 from utils import plot
 
