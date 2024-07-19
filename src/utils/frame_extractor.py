@@ -5,9 +5,6 @@ import math
 # Path to the video file
 def extract_frames(video_path):
    
-
-
-
     # Create a directory to store the extracted frames
     output_dir = "./out"
     os.makedirs(output_dir, exist_ok=True)
@@ -15,6 +12,9 @@ def extract_frames(video_path):
     # Open the video file
     video = cv2.VideoCapture(video_path)
 
+    fps = video.get(cv2.CAP_PROP_FPS)
+    totalNoFrames = video.get(cv2.CAP_PROP_FRAME_COUNT)
+    durationInSeconds = totalNoFrames // fps
 
     # Initialize frame counter
     frame_count = 0
@@ -30,6 +30,10 @@ def extract_frames(video_path):
             break
         # Save the frame as an image
         if(frame_count%frame_per_frames == 0 ) :
+            timestamp = video.get(cv2.CAP_PROP_POS_MSEC)/1000
+            percentage = (timestamp/durationInSeconds)*100  
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(f"{math.floor(percentage)}%")
             output_path = os.path.join(output_dir, f"{math.floor(timestamp)}.jpg")
             cv2.imwrite(output_path, frame)
             i += 1

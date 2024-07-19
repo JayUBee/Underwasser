@@ -4,17 +4,8 @@ from keras.preprocessing import image
 import tensorflow as tf
 
 
-imaage = easygui.fileopenbox()
+path = easygui.fileopenbox()
 model = tf.keras.models.load_model("./rps.h5")
-
-
-
- 
- 
-  # predicting images
-path = imaage
- # load image from path
-
 img = image.load_img(path, target_size=(150, 150))
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
