@@ -1,28 +1,27 @@
-from PySide6 import QtCore, QtWidgets
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from components.openFile import OpenFileButton
+from components.videoPlayer import VideoPlayer
 
-
-
-
-
-class App(QtWidgets.QWidget):
+class App(QWidget):
     def __init__(self):
         super().__init__()
-        #add components here
-        self.openFile= OpenFileButton()
-        
-        
-        
-        
-        layout = QtWidgets.QVBoxLayout()
-        
-        #show components here
-        layout.addWidget(self.openFile)
-        
-        
-        
+        self.initUI()
+
+    def initUI(self):
+        layout = QVBoxLayout()
+
+        self.videoPlayer = VideoPlayer(self)
+        self.openFileButton = OpenFileButton(self, self.videoPlayer)
+        self.openFileButton.file_selected.connect(self.update_ui)
+
+        self.fileLabel = QLabel("No file selected")
+        layout.addWidget(self.openFileButton)
+        layout.addWidget(self.fileLabel)
+        layout.addWidget(self.videoPlayer)
+
         self.setLayout(layout)
-        self.setWindowTitle("File Opener")
-        self.setGeometry(100, 100, 300, 200)
+        self.setWindowTitle('Video Player')
+        self.resize(800, 600)
 
-
+    def update_ui(self, file_path):
+        self.fileLabel.setText(f"Selected file: {file_path}")
