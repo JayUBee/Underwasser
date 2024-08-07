@@ -1,8 +1,7 @@
 from PySide6.QtWidgets import QPushButton, QFileDialog
 from PySide6.QtGui import QFont
-from .videoPlayer import VideoPlayer
+from videoPlayer import VideoPlayer
 from PySide6.QtCore import Signal
-from . import global_config
 
 
 class OpenFileButton(QPushButton):
@@ -26,6 +25,5 @@ class OpenFileButton(QPushButton):
         file_path, _ = file_dialog.getOpenFileName(self, "Open File", "", "All Files (*)")
         if file_path:
             print(f"Selected file: {file_path}")
-            global_config.file_path = file_path
             self.file_selected.emit(file_path)
           

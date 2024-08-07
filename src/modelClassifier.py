@@ -29,25 +29,25 @@ for fn in images:
     classes = model.predict(images, batch_size=10, verbose=0)
     if classes[0][0] == 1:
         #toggle comments to move the pictures in the folder
-        shutil.move(path,  './out/interesting/')
+        #shutil.move(path,  './out/interesting/')
     
         graph.append(1)
         i+=1
         percent =  math.floor((i/num_images)*100)
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(f"{percent}%")
+        print(f"classifying images... \nprogress:{percent}%")
         with open('graph.txt', 'a') as file:
             file.write(str(filename[:(filename.__len__()) - 4]) +':'+ str(1)+'\n')
         
     elif classes[0][1] == 1:
         #toggle comments to move the pictures in the folder
-        shutil.move(path, './out/not_interesting/')
+        #shutil.move(path, './out/not_interesting/')
         
         graph.append(0)
         i+=1
         percent = math.floor((i/num_images)*100)
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(f"{percent}%")
+        print(f"classifying images... \nprogress:{percent}%")
         with open('graph.txt', 'a') as file:
             file.write(str(filename[:(filename.__len__()) - 4]) +':'+ str(0)+'\n')
 

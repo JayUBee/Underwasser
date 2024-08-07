@@ -9,7 +9,6 @@ class App(QWidget):
 
     def initUI(self):
         layout = QVBoxLayout()
-
         self.videoPlayer = VideoPlayer(self)
         self.openFileButton = OpenFileButton(self, self.videoPlayer)
         self.openFileButton.file_selected.connect(self.update_ui)

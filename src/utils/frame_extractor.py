@@ -33,7 +33,7 @@ def extract_frames(video_path):
             timestamp = video.get(cv2.CAP_PROP_POS_MSEC)/1000
             percentage = (timestamp/durationInSeconds)*100  
             os.system('cls' if os.name == 'nt' else 'clear')
-            print(f"{math.floor(percentage)}%")
+            print(f"extracting frames ... \n progress:{math.floor(percentage)}%")
             output_path = os.path.join(output_dir, f"{math.floor(timestamp)}.jpg")
             cv2.imwrite(output_path, frame)
             i += 1
