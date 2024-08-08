@@ -29,7 +29,7 @@ for fn in images:
     classes = model.predict(images, batch_size=10, verbose=0)
     if classes[0][0] == 1:
         #toggle comments to move the pictures in the folder
-        #shutil.move(path,  './out/interesting/')
+        shutil.move(path,  './out/interesting/')
     
         graph.append(1)
         i+=1
@@ -41,7 +41,7 @@ for fn in images:
         
     elif classes[0][1] == 1:
         #toggle comments to move the pictures in the folder
-        #shutil.move(path, './out/not_interesting/')
+        shutil.move(path, './out/not_interesting/')
         
         graph.append(0)
         i+=1

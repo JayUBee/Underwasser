@@ -13,7 +13,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(512, activation='relu'),
-    tf.keras.layers.Dense(3, activation='softmax')  # 3 classes
+    tf.keras.layers.Dense(2, activation='softmax')  # 3 classess
 ])
 
 model.summary()
