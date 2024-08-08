@@ -8,8 +8,8 @@ import math
 
 # Directory containing the images
 videoPath = r"C:/Users/Ismail/Desktop/supplement/video.wmv"
-#extract_frames(videoPath)
-image_dir = 'out/not_interesting/'
+extract_frames(videoPath)
+image_dir = 'out/'
 
 # Function to calculate texture features and return a combined texture index
 def calculate_texture_index(image):
@@ -34,10 +34,11 @@ i=0
 for filename in os.listdir(image_dir):
     if filename.endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tiff')):
         image_path = os.path.join(image_dir, filename)
-        timestamp = filename
+        timestamp = filename.split('.')[0]
+        print(timestamp)
         image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         texture_index = calculate_texture_index(image)
-        timestamps.append(timestamp)
+        timestamps.append(int(timestamp))
         texture_indices.append(texture_index)
         i+=1
         percent =  math.floor((i/num_images)*100)
@@ -48,7 +49,6 @@ for filename in os.listdir(image_dir):
 timestamps, texture_indices = zip(*sorted(zip(timestamps, texture_indices)))
 
 # Convert timestamps to integers for better handling
-timestamps = range(len(timestamps))
 
 # Plot the texture index over time
 plt.figure(figsize=(15, 6))  # Increase figure size
