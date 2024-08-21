@@ -13,7 +13,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(512, activation='relu'),
-    tf.keras.layers.Dense(2, activation='softmax')  # 3 classess
+    tf.keras.layers.Dense(2, activation='softmax')  # 2 classess
 ])
 
 model.summary()
@@ -24,5 +24,7 @@ model.compile(
     optimizer='rmsprop',
     metrics=['accuracy']
 )
+
+#thesis presentation 26.08 1430Uhr
 
 
